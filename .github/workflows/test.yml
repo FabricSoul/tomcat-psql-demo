@@ -1,0 +1,23 @@
+name: Docker Compose CI
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: Start Docker Compose
+        run: |
+          docker-compose -f docker-compose.yml up -d
+
+      - name: Check if the web server is running
+        run: |
+          curl --retry 5 --retry-delay 5 --retry-connrefused http://localhost:8080
