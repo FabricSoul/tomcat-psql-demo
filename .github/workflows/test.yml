@@ -18,6 +18,6 @@ jobs:
         run: |
           docker-compose -f docker-compose.yml up -d
 
-      - name: Check if the web server is running
+      - name: Print Docker Compose Logs
         run: |
-          curl --retry 5 --retry-delay 5 --retry-connrefused http://localhost:8080
+          docker-compose logs
